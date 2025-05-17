@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASS: ${POSTGRES_PASS}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  web-api:
+    image: api
+    ports:
+      - "8000:8000"
+    env_file: .env
+    networks:
+      - backend
+
+  crawler:
+    image: crawler
+    env_file: .env
+    networks:
+      - backend
+
+  discovery:
+    image: discovery
+    env_file: .env
+    networks:
+      - backend
+
+  scheduler:
+    image: scheduler
+    env_file: .env
+    networks:
+      - backend
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+volumes:
+  pg_data:
+
+networks:
+  backend:
+    driver: overlay
