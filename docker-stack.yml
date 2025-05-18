@@ -24,6 +24,8 @@ services:
     env_file: .env
     networks:
       - backend
+    depends_on:
+      - postgres
 
   crawler:
     image: crawler
