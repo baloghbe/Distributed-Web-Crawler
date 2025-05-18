@@ -28,6 +28,8 @@ services:
   crawler:
     image: crawler
     env_file: .env
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
     networks:
       - backend
     depends_on:
@@ -40,6 +42,8 @@ services:
     env_file: .env
     networks:
       - backend
+    depends_on:
+      - postgres
 
   scheduler:
     image: scheduler
