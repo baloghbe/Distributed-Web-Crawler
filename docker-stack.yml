@@ -20,7 +20,7 @@ services:
   web-api:
     image: api
     ports:
-      - "8000:8000"
+      - "8001:8001"
     env_file: .env
     networks:
       - backend
@@ -29,6 +29,8 @@ services:
 
   crawler:
     image: crawler
+    ports:
+      - "8002:8002"
     env_file: .env
     environment:
       - ADMINER_DEFAULT_SERVER=postgres
@@ -39,6 +41,8 @@ services:
 
   discovery:
     image: discovery
+    ports:
+      - "8003:8003"
     environment:
       - ADMINER_DEFAULT_SERVER=postgres
     env_file: .env
@@ -49,9 +53,14 @@ services:
 
   scheduler:
     image: scheduler
+    ports:
+      - "8004:8004"
     env_file: .env
     networks:
       - backend
+    depends_on:
+      - discovery
+      - crawler
 
   adminer:
     image: adminer
