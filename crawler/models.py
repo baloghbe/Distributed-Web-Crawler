@@ -7,6 +7,7 @@ class Price_Input(Base):
     __tablename__ = "price_information"
 
     id = Column(Integer, primary_key=True)
+    ctype = Column(String)
     date = Column(DateTime)
     price = Column(Float)
     source_url = Column(String)

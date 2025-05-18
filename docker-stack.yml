@@ -30,6 +30,8 @@ services:
     env_file: .env
     networks:
       - backend
+    depends_on:
+      - postgres
 
   discovery:
     image: discovery
